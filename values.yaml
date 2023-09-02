@@ -3,7 +3,7 @@ image:
   url: registry.efarda.ir/
   repository: nginx
   pullPolicy: IfNotPresent
-  tag: ""
+  tag: "latest"
   name: nginx
   labels:
     app: nginx
