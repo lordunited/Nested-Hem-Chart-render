@@ -1,12 +1,10 @@
 replicaCount: 1
 image:
-  url: registry.efarda.ir/
-  repository: nginx
+  url: registry.efarda.ir/nginx:latest
   pullPolicy: IfNotPresent
-  tag: "latest"
-  name: nginx
+  name: nginx-2
   labels:
-    app: nginx
+    app: nginx-2
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:
@@ -14,4 +12,4 @@ serviceAccount:
   name: ""
 service:
   type: ClusterIP
-  port: 80
+  port: 8080
