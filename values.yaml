@@ -5,6 +5,7 @@ image:
   name: nginx-2
   labels:
     app: nginx-2
+  namespace: argocd
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:
