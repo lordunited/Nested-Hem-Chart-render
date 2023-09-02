@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  url: registry.efarda.ir/nginx:latest
+  url: nginx:latest
   pullPolicy: IfNotPresent
   name: nginx-2
   labels:
