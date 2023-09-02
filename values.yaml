@@ -1,0 +1,17 @@
+replicaCount: 1
+image:
+  url: registry.efarda.ir/
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: ""
+  name: nginx
+  labels:
+    app: nginx
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  create: true
+  name: ""
+service:
+  type: ClusterIP
+  port: 80

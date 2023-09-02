@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.image.name }}
+spec:
+  selector:
+    matchLabels:
+      {{- with .Values.image }} 
+      {{- range $k1, $v1 := .labels }}
+         {{ $k1}}: {{ $v1 }}
+      {{- end }}
+      {{- end }}
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        {{- range $k1, $v1 := .Values.image.labels }}
+          {{ $k1 }}: {{ $v1 }}
+        {{- end }}
+    spec:
+      containers:
+      - name: {{ .Values.image.repository }}
+        image: {{ .Values.image.url }}{{ .Values.image.repository }}":"{{ .Values.image.repository }}
+        ports:
+        - containerPort: 80
