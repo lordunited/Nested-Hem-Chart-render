@@ -24,3 +24,22 @@ spec:
         image: {{ .Values.image.url }}
         ports:
         - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.image.name }}
+  namespace: {{ .Values.image.namespace }} 
+spec:
+  selector:
+      {{- with .Values.image }}
+      {{- range $k1, $v1 := .labels }}
+         {{ $k1}}: {{ $v1 }}
+      {{- end }}
+      {{- end }}
+  type: ClusterIP
+  ports:
+  - name: {{ .Values.image.name }}
+    port: 80
+    targetPort: {{ .Values.service.port }}
+    protocol: TCP
