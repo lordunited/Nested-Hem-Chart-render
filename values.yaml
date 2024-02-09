@@ -1,16 +1,43 @@
-replicaCount: 1
-image:
-  url: nginx:latest
+container:
+- name: frontend
+  image: registry.efarda.ir/nginx:latest
+  volumes: 
+    - name: config
+      path: /usr/share/nginx/conf.d/default.conf
+    - name: html
+      path: /usr/share/nginx/conf.d/default.conf
+  volume: 
+    config: /usr/share/nginx/conf.d/default.conf   
+    html: /usr/share/nginx/conf.d/default.conf
   pullPolicy: IfNotPresent
-  name: nginx-2
   labels:
-    app: nginx-2
-  namespace: argocd
-nameOverride: ""
-fullnameOverride: ""
-serviceAccount:
-  create: true
-  name: ""
-service:
-  type: ClusterIP
-  port: 8080
+    app: nginx
+  namespace: default
+  environments:
+    TZ: "Asia/Tehran"
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "128Mi"
+- name: backend
+  image: registry.efarda.ir/nginx:latest
+  volumes: 
+    - name: .env
+      path: /usr/share/nginx/conf.d/default.conf
+    - name: .app.properties
+      path: /usr/share/nginx/html/.app.properties
+  volume: 
+    .env: /usr/share/nginx/conf.d/default.conf   
+    .app.properties: /usr/share/nginx/html/.app.properties
+  pullPolicy: IfNotPresent
+  labels:
+    app: web
+  namespace: default
+  environments:
+    TZ: "Asia/Tehran"
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "128Mi"
